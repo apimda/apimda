@@ -1,0 +1,13 @@
+{
+  "name": "@apimda/runtime-lambda",
+  "main": "lib/index.js",
+  "dependencies": {
+    "@apimda/runtime": "*"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.109"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}

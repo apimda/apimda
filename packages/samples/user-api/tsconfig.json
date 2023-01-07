@@ -1,0 +1,22 @@
+{
+  "extends": "../../../tsconfig.json",
+  "include": ["src/**/*"],
+  "references": [
+    {
+      "path": "../../devtime"
+    },
+    {
+      "path": "../../runtime"
+    },
+    {
+      "path": "../../runtime-lambda"
+    },
+    {
+      "path": "../../deploy-cdk"
+    }
+  ],
+  "compilerOptions": {
+    "outDir": "./lib",
+    "rootDir": "./src"
+  }
+}

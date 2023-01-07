@@ -1,0 +1,39 @@
+{
+  "name": "@apimda/root",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "packages/*",
+    "packages/samples/*",
+    "packages/test-samples/*"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "deploy": "npm run build && npm run deploy --workspaces --if-present",
+    "destroy": "npm run build && npm run destroy --workspaces --if-present",
+    "prepare": "husky install",
+    "synth": "npm run build && npm run synth --workspaces --if-present",
+    "test": "npm run build && npm run test --workspaces --if-present",
+    "watch": "npm run build && npm run watch --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.1",
+    "@types/node": "^16.18.3",
+    "husky": "^8.0.0",
+    "jest": "^28.1.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "prettier-plugin-organize-imports": "^3.1.1",
+    "sort-npm-scripts": "^1.1.0",
+    "ts-jest": "^28.0.4",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.4"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown",
+    "package.json": [
+      "sort-npm-scripts"
+    ]
+  }
+}

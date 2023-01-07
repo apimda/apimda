@@ -1,0 +1,15 @@
+{
+  "name": "@apimda/deploy-cdk",
+  "main": "lib/index.js",
+  "dependencies": {
+    "@apimda/devtime": "*",
+    "aws-cdk-lib": "^2.59.0",
+    "constructs": "^10.1.212"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.109"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}

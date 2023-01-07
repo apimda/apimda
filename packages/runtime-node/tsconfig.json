@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "references": [
+    {
+      "path": "../runtime"
+    }
+  ],
+  "include": ["./src/**/*"],
+  "compilerOptions": {
+    "outDir": "./lib",
+    "rootDir": "./src"
+  }
+}

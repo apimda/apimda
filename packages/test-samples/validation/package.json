@@ -1,0 +1,12 @@
+{
+  "name": "@apimda/test-samples-validation",
+  "dependencies": {
+    "@apimda/runtime": "*"
+  },
+  "devDependencies": {
+    "@apimda/devtime": "*"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}

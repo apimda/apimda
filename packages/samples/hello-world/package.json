@@ -1,0 +1,13 @@
+{
+  "name": "@apimda/samples-hello-world",
+  "dependencies": {
+    "@apimda/runtime-node": "*"
+  },
+  "devDependencies": {
+    "@apimda/devtime": "*"
+  },
+  "scripts": {
+    "test": "jest",
+    "serve": "ts-node src/serve.ts"
+  }
+}

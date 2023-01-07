@@ -1,0 +1,27 @@
+{
+  "name": "@apimda/samples-user-api",
+  "dependencies": {
+    "@apimda/runtime": "*",
+    "@apimda/runtime-lambda": "*",
+    "@aws-sdk/client-dynamodb": "^3.245.0",
+    "@aws-sdk/lib-dynamodb": "^3.245.0",
+    "aws-cdk-lib": "^2.59.0",
+    "constructs": "^10.1.212"
+  },
+  "devDependencies": {
+    "@apimda/deploy-cdk": "*",
+    "@apimda/devtime": "*",
+    "@aws-cdk/aws-apigatewayv2-alpha": "^2.59.0-alpha.0",
+    "@aws-cdk/aws-apigatewayv2-authorizers-alpha": "^2.59.0-alpha.0",
+    "@aws-cdk/aws-apigatewayv2-integrations-alpha": "^2.59.0-alpha.0",
+    "aws-cdk": "^2.59.0",
+    "esbuild": "^0.16.15",
+    "ts-local-dynamo": "^1.1.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "deploy": "cdk deploy --outputs-file ./cdk.outputs.json",
+    "destroy": "cdk destroy & rm ./cdk.outputs.json",
+    "docs": "npx apimda api ./"
+  }
+}

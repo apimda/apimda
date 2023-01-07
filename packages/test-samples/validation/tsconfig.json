@@ -1,0 +1,16 @@
+{
+  "extends": "../../../tsconfig.json",
+  "include": ["src/**/*"],
+  "references": [
+    {
+      "path": "../../devtime"
+    },
+    {
+      "path": "../../runtime"
+    }
+  ],
+  "compilerOptions": {
+    "outDir": "./lib",
+    "rootDir": "./src"
+  }
+}

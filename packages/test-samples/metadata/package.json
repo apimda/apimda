@@ -1,0 +1,12 @@
+{
+  "name": "@apimda/test-samples-metadata",
+  "dependencies": {
+    "@apimda/runtime-lambda": "*"
+  },
+  "devDependencies": {
+    "@apimda/devtime": "*"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}

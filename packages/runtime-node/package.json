@@ -1,0 +1,12 @@
+{
+  "name": "@apimda/runtime-node",
+  "main": "lib/index.js",
+  "dependencies": {
+    "@apimda/runtime": "*",
+    "raw-body": "^2.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest"
+  }
+}
