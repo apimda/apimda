@@ -1,12 +1,12 @@
 {
-  "extends": "../../../tsconfig.json",
+  "extends": "../../tsconfig.json",
   "include": ["src/**/*"],
   "references": [
     {
-      "path": "../../devtime"
+      "path": "../../packages/devtime"
     },
     {
-      "path": "../../runtime"
+      "path": "../../packages/runtime"
     }
   ],
   "compilerOptions": {

@@ -1,5 +1,7 @@
 {
   "name": "@apimda/samples-user-api",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
     "@apimda/runtime": "*",
     "@apimda/runtime-lambda": "*",

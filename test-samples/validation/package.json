@@ -1,7 +1,9 @@
 {
-  "name": "@apimda/test-samples-metadata",
+  "name": "@apimda/test-samples-validation",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "@apimda/runtime-lambda": "*"
+    "@apimda/runtime": "*"
   },
   "devDependencies": {
     "@apimda/devtime": "*"

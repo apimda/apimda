@@ -33,16 +33,16 @@
       "path": "./packages/runtime-node"
     },
     {
-      "path": "./packages/samples/hello-world"
+      "path": "./samples/hello-world"
     },
     {
-      "path": "./packages/samples/user-api"
+      "path": "./samples/user-api"
     },
     {
-      "path": "./packages/test-samples/metadata"
+      "path": "./test-samples/metadata"
     },
     {
-      "path": "./packages/test-samples/validation"
+      "path": "./test-samples/validation"
     }
   ]
 }

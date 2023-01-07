@@ -1,0 +1,11 @@
+# test files
+jest.config.js
+**/**.test.*
+
+# typescript build/sources
+**/tsconfig.*
+**/**.ts.map
+**/src/**
+
+# generated
+openapi.json

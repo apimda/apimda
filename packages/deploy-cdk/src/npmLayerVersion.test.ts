@@ -15,7 +15,7 @@ describe('NpmLayer', () => {
       description: 'sample description'
     };
     const layer = new NpmLayerVersion(stack, 'NpmLayer', {
-      layerPath: '../../packages/samples/user-api/src/deploy/layer',
+      layerPath: '../../samples/user-api/src/deploy/layer',
       layerVersionProps: lvProps
     });
     expect(layer.packagedDependencies.sort()).toStrictEqual(
