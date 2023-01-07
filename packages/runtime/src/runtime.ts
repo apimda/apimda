@@ -173,61 +173,15 @@ export class Validator {
   }
 }
 
-export class ControllerInstanceManager {
-  private module: any;
-  private instance: any;
-  private initialized: boolean;
-
-  constructor(public readonly runtime: RuntimeController) {
-    this.initialized = runtime.initMethodName === undefined;
-  }
-
-  async getClass(): Promise<any> {
-    const module = await this.loadModule();
-    return module[this.runtime.className];
-  }
-
-  async getInstance(): Promise<any> {
-    if (!this.instance) {
-      const args = this.runtime.ctorEnvNames.map(e => process.env[e]!);
-      const clazz = await this.getClass();
-      this.instance = new clazz(args);
-      if (!this.initialized) {
-        await this.instance[this.runtime.initMethodName!].apply(this.instance);
-        this.initialized = true;
-      }
-    }
-    return this.instance;
-  }
-
-  async invokeAsync(methodName: string, args: any[]): Promise<any> {
-    const instance = await this.getInstance();
-    return await (instance[methodName] as Function).apply(instance, args);
-  }
-
-  async invokeStatic(methodName: string, args: any[]): Promise<any> {
-    const clazz = await this.getClass();
-    return (clazz[methodName] as Function)(...args);
-  }
-
-  private async loadModule(): Promise<any> {
-    if (!this.module) {
-      this.module = await import(this.runtime.moduleName);
-    }
-    return this.module;
-  }
-}
-
 export async function processRequest<T>(
-  request: T,
   inputExtractor: InputExtractor<T>,
   route: RuntimeRoute,
-  controllerManager: ControllerInstanceManager,
+  controllerInstance: any,
   validator: Validator
 ): Promise<RuntimeResult> {
   try {
     const args = route.inputs.map(input => validator.validate(input, inputExtractor.extract(input)));
-    const result = await controllerManager.invokeAsync(route.classMethodName, args);
+    const result = await (controllerInstance[route.classMethodName] as Function).apply(controllerInstance, args);
     return successResult(route.successOutput, result);
   } catch (e) {
     if (e instanceof HttpError) {

@@ -1,8 +1,8 @@
 import {
-  ControllerInstanceManager,
   HttpErrorStatusCode,
   processRequest,
   RuntimeApp,
+  RuntimeController,
   RuntimeInput,
   RuntimeResult,
   RuntimeRoute,
@@ -59,6 +59,51 @@ const sendResultResponse = (response: ServerResponse, result: RuntimeResult) => 
   response.end();
 };
 
+class ControllerInstanceManager {
+  private module: any;
+  private instance: any;
+  private initialized: boolean;
+
+  constructor(public readonly runtime: RuntimeController) {
+    this.initialized = runtime.initMethodName === undefined;
+  }
+
+  async getClass(): Promise<any> {
+    const module = await this.loadModule();
+    return module[this.runtime.className];
+  }
+
+  async getInstance(): Promise<any> {
+    if (!this.instance) {
+      const args = this.runtime.ctorEnvNames.map(e => process.env[e]!);
+      const clazz = await this.getClass();
+      this.instance = new clazz(args);
+      if (!this.initialized) {
+        await this.instance[this.runtime.initMethodName!].apply(this.instance);
+        this.initialized = true;
+      }
+    }
+    return this.instance;
+  }
+
+  async invokeAsync(methodName: string, args: any[]): Promise<any> {
+    const instance = await this.getInstance();
+    return await (instance[methodName] as Function).apply(instance, args);
+  }
+
+  async invokeStatic(methodName: string, args: any[]): Promise<any> {
+    const clazz = await this.getClass();
+    return (clazz[methodName] as Function)(...args);
+  }
+
+  private async loadModule(): Promise<any> {
+    if (!this.module) {
+      this.module = await import(this.runtime.moduleName);
+    }
+    return this.module;
+  }
+}
+
 export const createRequestListener = (app: RuntimeApp): RequestListener => {
   const routeMatcher = new RouteMatcher();
   const routeMap = new Map<string, [ControllerInstanceManager, RuntimeRoute]>();
@@ -87,7 +132,8 @@ export const createRequestListener = (app: RuntimeApp): RequestListener => {
     const bodyInput = route.inputs.find(i => i.location === 'body');
     const body = bodyInput ? await getBody(request, bodyInput) : undefined;
     const extractor = new NodeRequestExtractor(request, url, routeMatch.pathParameters, body);
-    const result = await processRequest(request, extractor, route, controllerInstanceManager, validator);
+    const instance = await controllerInstanceManager.getInstance();
+    const result = await processRequest(extractor, route, instance, validator);
     sendResultResponse(response, result);
   };
 };

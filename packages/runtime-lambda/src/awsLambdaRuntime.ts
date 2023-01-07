@@ -1,5 +1,4 @@
 import {
-  ControllerInstanceManager,
   HttpError,
   InputExtractor,
   processRequest,
@@ -76,28 +75,29 @@ export class LambdaExtractor implements InputExtractor<Event> {
   }
 }
 
-interface RouteInfo {
-  controllerManager: ControllerInstanceManager;
-  route: RuntimeRoute;
-}
-
 /**
- * Create a handler for all routes on the specified app.
- * @param app runtime app metadata
+ * Create a handler for all routes on the specified controller.
+ * @param app runtime controller metadata
  */
-export function createAwsLambdaHandler(app: RuntimeApp) {
-  const routesByPath: Record<string, RouteInfo> = {};
-  for (const controller of app.controllers) {
-    const controllerManager = new ControllerInstanceManager(controller);
-    for (const route of controller.routes) {
-      routesByPath[`${route.method.toUpperCase()} ${route.path}`] = { controllerManager, route };
-    }
+export function createAwsLambdaHandler(app: RuntimeApp, instance: any) {
+  if (app.controllers.length !== 1) {
+    throw new Error('Cannot create AWS lambda handler for more than one controller');
+  }
+  const controller = app.controllers[0];
+  let initialized = controller.initMethodName === undefined;
+  const routesByPath: Record<string, RuntimeRoute> = {};
+  for (const route of controller.routes) {
+    routesByPath[`${route.method.toUpperCase()} ${route.path}`] = route;
   }
   const validator = new Validator(app.schemas);
   return async (event: Event) => {
+    if (!initialized) {
+      await instance[controller.initMethodName!].apply(instance);
+      initialized = true;
+    }
     const routeInfo = routesByPath[event.routeKey];
     const extractor = new LambdaExtractor(event);
-    const result = await processRequest(event, extractor, routeInfo.route, routeInfo.controllerManager, validator);
+    const result = await processRequest(extractor, routeInfo, instance, validator);
     return toLambdaResult(result);
   };
 }

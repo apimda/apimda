@@ -81,11 +81,12 @@ export class ApimdaApp extends Construct {
 
       const handler = `handler_${controller.className}`;
       const entry = path.join(dirname, `__handler_${handler}.ts`);
+      const ctorArgs = controller.ctorEnvNames.map(env => `process.env['${env}']`).join();
       const fileContents = `
-        import {createControllerHandler} from "@apimda/runtime";
+        import {createAwsLambdaHandler} from "@apimda/runtime-lambda";
         import {${controller.className}} from "${controller.moduleName}";
         const app = ${JSON.stringify(controller.runtimeApp)};
-        export const ${handler} = createAwsLambdaHandler(app);
+        export const ${handler} = createAwsLambdaHandler(app, new ${controller.className}(${ctorArgs}));
       `;
 
       fs.writeFileSync(entry, fileContents);

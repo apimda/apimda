@@ -65,3 +65,24 @@ const apimdaApp = new ApimdaApp(this, 'ApimdaApp', {
   lambdaProps
 });
 ```
+
+:::warning Packaging Apimda's Runtime
+
+Currently `NpmLayerVersion.packagedDependencies` only reports dependencies that are explicitly declared in the layer's `package.json`.
+
+As such, if you want to package all of apimda's runtime dependencies, you need to declare both `@apimda/runtime` and `@apimda/runtime-lambda` in your layer's `package.json`:
+
+```json
+{
+  "name": "@my-project/base-layer",
+  "version": "1.0.0",
+  "dependencies": {
+    "@apimda/runtime-lambda": "0.1.0",
+    "@apimda/runtime": "0.1.0"
+  }
+}
+```
+
+If you only declare `@apimda/runtime-lambda`, the generated `NodeJsFunction`s will use esbuild to inline apimda's entire runtime including all of its dependencies - even large ones like [AJV](https://ajv.js.org) - directly in your lambda code. This will also cause issues with error handling, as apimda currently uses `instanceof HttpError` to distinguish between expected statuses (e.g. 400, 404, etc.) and unexpected errors (i.e. 500).
+
+:::

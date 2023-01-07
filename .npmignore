@@ -9,3 +9,5 @@ jest.config.js
 
 # generated
 openapi.json
+cdk.out
+cdk.outputs.json
