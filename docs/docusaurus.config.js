@@ -35,7 +35,7 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/joemays/apimda/tree/main/docs'
+          editUrl: 'https://github.com/apimda/apimda/tree/main/docs'
         },
         blog: false,
         theme: {
@@ -62,7 +62,7 @@ const config = {
             label: 'Documentation'
           },
           {
-            href: 'https://github.com/joemays/apimda',
+            href: 'https://github.com/apimda/apimda',
             position: 'right',
             className: 'header-github-link',
             'aria-label': 'GitHub repository'
@@ -102,7 +102,7 @@ const config = {
               },
               {
                 label: 'GitHub Discussions',
-                href: 'https://github.com/joemays/apimda/discussions'
+                href: 'https://github.com/apimda/apimda/discussions'
               }
               // {
               //   label: "Twitter",
@@ -115,11 +115,11 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/joemays/apimda'
+                href: 'https://github.com/apimda/apimda'
               },
               {
                 label: 'Issues',
-                href: 'https://github.com/joemays/apimda/issues'
+                href: 'https://github.com/apimda/apimda/issues'
               }
             ]
           }
