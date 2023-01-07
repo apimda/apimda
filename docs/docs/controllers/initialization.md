@@ -32,7 +32,7 @@ This has two advantages over using `process.env.DYNAMO_USER_TABLE` directly in c
 
 Note restrictions on use of `@Env`:
 
-1. It can only be in constructor arguments.
+1. It can only be used in constructor arguments.
 2. Arguments must be of type `string`.
 
 ## @Init

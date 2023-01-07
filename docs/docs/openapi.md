@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Open API
 
-Apimda can generate, with some caveats, complete Open API 3.1 documentation.
+Apimda can generate complete Open API 3.1 documentation, with some caveats.
 
 For the most part, the same information present in the controller and method decorators is exactly what's needed for
 this documentation. Additional information may be provided via a [configuration file](#configuration-file).
@@ -29,7 +29,7 @@ apimda help api
 ## Configuration File
 
 To provide additional information for Open API generation, create a configuration file called `apimda.config.js` in the
-same directory as your `tsconfig.json`, and the CLI will pick it up automatically. Alternatively, you can provide the
+same directory as your `tsconfig.json`, and the CLI will find it automatically. Alternatively, you can provide the
 full path to the configuration file as a CLI argument.
 
 Currently, the following may be provided in an `openApi` property in the configuration file:
@@ -44,9 +44,6 @@ Currently, the following may be provided in an `openApi` property in the configu
 5. Top-level [Security Requirements](https://spec.openapis.org/oas/v3.1.0#security-requirement-object) to declare which
    security mechanisms can be used across the API (see 'security'
    in [OpenAPI Object](https://spec.openapis.org/oas/v3.1.0#openapi-object))
-
-Additionally, if you are using security schemes, apimda needs to know the name of the security scheme to use. You must
-provide this name in `apimdaSecuritySchemeName` property of the configuration file.
 
 A full example is below (notice that it is a partial Open API document):
 

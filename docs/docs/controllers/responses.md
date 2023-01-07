@@ -67,7 +67,7 @@ class UserController {
 You can also provide custom status codes, for both successful and error responses,
 by [returning a custom response](#custom-responses).
 
-:::warn Throwing HttpError
+:::info Throwing HttpError
 Apimda does not currently reliably detect `HttpError`s that are **_not_** constructed in the `throws` statement.
 
 For example, apimda will not know that this method can return a `404`, because the error is constructed in
@@ -112,7 +112,7 @@ class SampleController {
 }
 ```
 
-:::warn Returning API Gateway V2 Result
+:::info Returning API Gateway V2 Result
 
 Note that while controller methods may _currently_ return `APIGatewayProxyStructuredResultV2`, it is highly discouraged.
 It provides no benefit over `ApimdaResult<T>`, disables proper Open API documentation of responses, forces manual

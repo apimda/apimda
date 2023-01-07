@@ -6,11 +6,11 @@ sidebar_position: 2
 
 Apimda has a `NpmLayerVersion` construct to create a custom [lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) from an NPM package.json file. This is useful for packaging your project's dependencies into a layer to speed up deployment and lower cold start times.
 
-Simply list the packages you'd like to be included in `package.json`, and apimda will make sure they're up-to-date (i.e. `npm install`) before every deployment, and then generate the layer itself as a CDK [LayerVersion](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.LayerVersion.html).
+Add the packages to be included in a `package.json`, and apimda will make sure they're up-to-date before every deployment (i.e. `npm install`), and generate the [LayerVersion](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.LayerVersion.html) to use in your stacks.
 
 ## Directory Structure
 
-The `NpmLayerVersion` requires the following directory structure, as specified by [AWS Lambda layer path configuration](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html#configuration-layers-path)
+`NpmLayerVersion` requires the following directory structure, as specified by [AWS Lambda layer path configuration](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html#configuration-layers-path)
 
 ```
 <root>
