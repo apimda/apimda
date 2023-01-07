@@ -9,7 +9,7 @@ const config = {
   title: 'apimda',
   tagline: 'Create declarative serverless APIs with AWS API Gateway and Lambda',
   url: 'https://apimda.com',
-  baseUrl: '/',
+  baseUrl: '/apimda/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
