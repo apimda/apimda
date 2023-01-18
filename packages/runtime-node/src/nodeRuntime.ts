@@ -43,9 +43,6 @@ const sendResultResponse = (response: ServerResponse, result: RuntimeResult) => 
   for (const headerName in result.headers) {
     outgoingHeaders[headerName] = result.headers[headerName].toString();
   }
-  if (!result.headers['Content-Type']) {
-    outgoingHeaders['Content-Type'] = 'application/json';
-  }
 
   const cookies: string[] = [];
   for (const cookieName in result.cookies) {

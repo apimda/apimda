@@ -69,6 +69,10 @@ function successResult(out: RuntimeOutput, result: any): RuntimeResult {
   const isString = out.declaredTypeName === 'string';
   const body = isBinary ? (bodyResult as Buffer) : isString ? bodyResult : JSON.stringify(bodyResult);
 
+  if (!headers['Content-Type']) {
+    headers['Content-Type'] = isString ? 'text/plain' : 'application/json';
+  }
+
   return {
     statusCode,
     headers,
