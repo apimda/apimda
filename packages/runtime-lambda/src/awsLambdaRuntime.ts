@@ -79,11 +79,15 @@ export class LambdaExtractor implements InputExtractor<Event> {
  * Create a handler for all routes on the specified controller.
  * @param app runtime controller metadata
  */
-export function createAwsLambdaHandler(app: RuntimeApp, instance: any) {
-  if (app.controllers.length !== 1) {
-    throw new Error('Cannot create AWS lambda handler for more than one controller');
+export function createAwsLambdaHandler<T>(app: RuntimeApp, controllerClass: new () => T) {
+  const controller = app.controllers.find(controller => controller.className === controllerClass.name);
+
+  if (!controller) {
+    throw new Error(`Could not find desired controller ${controllerClass.name} in app.`);
   }
-  const controller = app.controllers[0];
+
+  const instance = new controllerClass();
+
   let initialized = controller.initMethodName === undefined;
   const routesByPath: Record<string, RuntimeRoute> = {};
   for (const route of controller.routes) {
@@ -92,7 +96,7 @@ export function createAwsLambdaHandler(app: RuntimeApp, instance: any) {
   const validator = new Validator(app.schemas);
   return async (event: Event) => {
     if (!initialized) {
-      await instance[controller.initMethodName!].apply(instance);
+      await (instance as any)[controller.initMethodName!].apply(instance);
       initialized = true;
     }
     const routeInfo = routesByPath[event.routeKey];
