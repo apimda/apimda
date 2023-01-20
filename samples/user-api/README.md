@@ -50,9 +50,6 @@ runtime dependencies.
 
 ## OpenAPI documentation
 
-See `apimda.config.js` for an example of how to use outputs from CDK (like API endpoints) to customize generated OpenAPI
-documentation. (Note that a more resilient, alternative approach would be to read values using CloudFormation API.)
-
 You can generate the API docs using the `docs` npm script:
 
 ```bash

@@ -101,25 +101,17 @@ const config = {
                 to: '/docs/contributions'
               },
               {
-                label: 'GitHub Discussions',
-                href: 'https://github.com/apimda/apimda/discussions'
+                label: 'Issues',
+                href: 'https://github.com/apimda/apimda/issues'
               }
-              // {
-              //   label: "Twitter",
-              //   href: "https://twitter.com/username",
-              // },
             ]
           },
           {
-            title: 'More',
+            title: 'Source',
             items: [
               {
                 label: 'GitHub',
                 href: 'https://github.com/apimda/apimda'
-              },
-              {
-                label: 'Issues',
-                href: 'https://github.com/apimda/apimda/issues'
               }
             ]
           }
@@ -133,7 +125,7 @@ const config = {
       docs: {
         sidebar: {
           hideable: true,
-          autoCollapseCategories: false
+          autoCollapseCategories: true
         }
       }
     })

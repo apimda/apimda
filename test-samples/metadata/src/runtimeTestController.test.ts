@@ -24,7 +24,8 @@ const createEvent = <T extends Pick<Event, 'routeKey'> & Partial<Event>>(props: 
 
 beforeAll(() => {
   app = AppMetadata.fromTsConfig(require.resolve('@apimda/test-samples-metadata/tsconfig.json'));
-  handler = createAwsLambdaHandler(app.runtimeApp, new RuntimeTestController());
+  const controller = app.controllers.find(c => c.className === 'RuntimeTestController');
+  handler = createAwsLambdaHandler(controller!.runtimeApp, new RuntimeTestController());
 });
 
 describe('Async initializer test', () => {
