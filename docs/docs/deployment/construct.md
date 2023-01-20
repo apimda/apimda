@@ -46,7 +46,7 @@ for (const route of apimdaApp.routes) {
   api.addRoutes({
     path: route.path,
     methods: [route.method as apigw.HttpMethod],
-    integration: integration
+    integration
   });
 }
 ```
