@@ -122,3 +122,21 @@ describe('GenericResult tests', () => {
     expect(result.body).toStrictEqual(JSON.stringify(RuntimeTestController.genericResultValue));
   });
 });
+
+describe('Default Content-Type tests', () => {
+  test('text/plain Content-Type', async () => {
+    const routeKey = 'GET /testOptionalQuery';
+
+    const event = createEvent({ routeKey });
+    const result = await handler(event);
+    expect(result.headers!['Content-Type']).toBe('text/plain');
+  });
+
+  test('application/json Content-Type', async () => {
+    const routeKey = 'GET /apimdaResult';
+
+    const event = createEvent({ routeKey });
+    const result = await handler(event);
+    expect(result.headers!['Content-Type']).toBe('application/json');
+  });
+});
