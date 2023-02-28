@@ -5,12 +5,31 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { NpmLayerVersion } from './npmLayerVersion';
 
 describe('NpmLayer', () => {
+  test('rejects multi-arch layers', () => {
+    const app = new cdk.App();
+    const stack = new cdk.Stack(app, 'ApimdaStack');
+    const lvProps = {
+      compatibleArchitectures: [lambda.Architecture.ARM_64, lambda.Architecture.X86_64],
+      compatibleRuntimes: [lambda.Runtime.NODEJS_16_X]
+    };
+    let err = undefined;
+    try {
+      const layer = new NpmLayerVersion(stack, 'NpmLayer', {
+        layerPath: '../../samples/user-api/src/deploy/layer',
+        layerVersionProps: lvProps
+      });
+    } catch (e) {
+      err = e;
+    }
+    expect(err).toBeDefined();
+  });
+
   test('creates correct lambda layer', () => {
     const app = new cdk.App();
     const stack = new cdk.Stack(app, 'ApimdaStack');
     const lvProps = {
       removalPolicy: RemovalPolicy.DESTROY,
-      compatibleArchitectures: [lambda.Architecture.X86_64, lambda.Architecture.ARM_64],
+      compatibleArchitectures: [lambda.Architecture.ARM_64],
       compatibleRuntimes: [lambda.Runtime.NODEJS_16_X],
       description: 'sample description'
     };
@@ -25,7 +44,7 @@ describe('NpmLayer', () => {
     const template = Template.fromStack(stack);
     template.resourceCountIs('AWS::Lambda::LayerVersion', 1);
     template.hasResourceProperties('AWS::Lambda::LayerVersion', {
-      CompatibleArchitectures: ['x86_64', 'arm64'],
+      CompatibleArchitectures: ['arm64'],
       CompatibleRuntimes: ['nodejs16.x'],
       Description: 'sample description'
     });
